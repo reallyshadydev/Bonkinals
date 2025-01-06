@@ -144,7 +144,7 @@ function walletNew() {
 async function walletSync() {
   let wallet = JSON.parse(fs.readFileSync(WALLET_PATH));
 
-  console.log("syncing utxos with local Pepecoin node via RPC");
+  console.log("syncing utxos with local Bonkcoin node via RPC");
 
   const body = {
     jsonrpc: "1.0",
