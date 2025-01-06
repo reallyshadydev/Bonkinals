@@ -1,288 +1,256 @@
-# Pepinals
+# Bonkinals
 
-A minter and protocol for inscriptions on Pepecoin. 
+A minter and protocol for inscriptions on Bonkcoin.
+
+---
 
 ## ⚠️⚠️⚠️ Important ⚠️⚠️⚠️
 
-Use this wallet for inscribing only! Avoid storing pepinals in pepecoin core.
+Use this wallet **ONLY** for inscribing. Avoid storing Bonkinals in Bonkcoin Core.
 
-Please use a fresh paper wallet to mint to with nothing else in it until proper wallet for pepinals support comes.. 
+- Always use a fresh paper wallet for minting until dedicated Bonkinals wallet support is available.
+- This wallet is **not** intended for storing funds or inscriptions.
 
-This wallet is not meant for storing funds or inscriptions.
+---
 
 ## Prerequisites
 
-To use this, you'll need to setup a Pepecoin node, clone this repo and install Node.js on your computer.
+To use Bonkinals, you will need:
+- A fully synced **Bonkcoin node**.
+- This repository cloned locally.
+- Node.js installed on your system.
 
-### Setup Pepecoin node
+---
 
-Install Pepecoin Core from the official Pepecoin github: (https://github.com/pepecoinppc/pepecoin/releases)
+### 1. Setup Bonkcoin Node
 
-### ⚠️⚠️⚠️ Important ⚠️⚠️⚠️
-A configuration file needs to be created before you continue with the sync.
+Install Bonkcoin Core from the official GitHub repository:
 
--Stop your node
+[Bonkcoin Core Releases](https://github.com/Bonkcoin/Bonkcoin-core/releases)
 
--Create a `pepecoin.conf` file in your Pepecoin data folder.
+#### ⚠️⚠️⚠️ Important ⚠️⚠️⚠️
 
--Copy and paste this to the created file. Set your own username/password. Save it!
+Before syncing your node, create a configuration file:
 
-```
-rpcuser=ape
-rpcpassword=zord
-rpcport=22555
-server=1
-listen=1
-txindex=1
-rpcallowip=127.0.0.1
-```
+1. Stop your Bonkcoin node.
+2. Create a file named `bonkcoin.conf` in your Bonkcoin data folder.
+3. Add the following content to the file, replacing the username (`rpcuser`) and password (`rpcpassword`) with your own secure values:
+    ```
+    rpcuser=bonker
+    rpcpassword=bonkers
+    rpcport=14327
+    server=1
+    listen=1
+    txindex=1
+    rpcallowip=127.0.0.1
+    ```
+4. Start your node again.
+5. Wait for your node to fully sync with the Bonkcoin network.
 
--Start your node again
+---
 
--Wait for your node to sync with the network.
+### 2. Install Node.js
 
-==========
+Download Node.js from [Node.js Downloads](https://nodejs.org/en/download) and follow the installation instructions for your operating system.
 
-### Install NodeJS
+---
 
-Please head over to (https://nodejs.org/en/download) and follow the installation instructions for your system.
+### 3. Setup Bonkinals
 
-==========
+#### Clone the Repository
 
-
-### Setup Pepinals
-
-#### Clone Pepinal minter
-On your Terminal, type the following commands:
-```
+Run the following commands in your terminal:
+```bash
 cd
-git clone https://github.com/PepeEnthusiast/Pepinals.git
+git clone https://github.com/Bonkcoin/Bonkinals.git
 ```
-#### Setup minter
 
-```
-cd Pepinals
+#### Install Dependencies
+
+```bash
+cd Bonkinals
 npm install
-cd bitcore-lib-pepe
+cd bitcore-lib-bonk
 npm install
 cd ..
-``` 
-
-After all dependencies are solved, you can configure the environment:
-
-#### Configure environment
-
-Create a `.env` file with your node information. Set the same username/password used in `pepecoin.conf`.
-
 ```
-NODE_RPC_URL=http://127.0.0.1:22555
-NODE_RPC_USER=ape
-NODE_RPC_PASS=zord
+
+#### Configure Environment
+
+Create a `.env` file in the `Bonkinals` directory with your node's details:
+```env
+NODE_RPC_URL=http://127.0.0.1:14327
+NODE_RPC_USER=bonker
+NODE_RPC_PASS=bonkers
 TESTNET=false
 ```
 
-==========
+---
 
-#### ⚠️⚠️⚠️ Important ⚠️⚠️⚠️
-Before proceeding, please make sure your node is fully synced.
-Have fun!
+## Managing Wallet Balance
 
-### Managing wallet balance
-
-Generate a new `.wallet.json` file:
-
-```
+### Generate a New Wallet
+```bash
 node . wallet new
 ```
 
-Retrieve your private key from `.wallet.json` and import it in Pepecoin Core, this can be done from the GUI or the following command
+Your private key will be stored in `.wallet.json`. To use it with Bonkcoin Core:
 
-```
-pepecoin-cli importprivkey <your_private_key> <optional_label> false
+```bash
+bonkcoin-cli importprivkey <your_private_key> <optional_label> false
 ```
 
-Then send PEPE to the address displayed. Once sent, sync your wallet:
-
-```
+Send BONK to the displayed address, then sync your wallet:
+```bash
 node . wallet sync
 ```
 
-If you are minting a lot, you can split up your UTXOs:
-
-```
+### Split UTXOs
+For frequent minting, split your UTXOs into smaller amounts:
+```bash
 node . wallet split <count>
 ```
 
-When you are done minting, send the funds back:
-
-```
+### Send Funds Back
+After minting, you can send remaining funds back:
+```bash
 node . wallet send <address> <optional amount>
 ```
 
-==========
+---
 
+## Minting Bonkinals
 
-### Minting Pepinals
+### Inscribe a File
 
-**Note**: Please use a fresh wallet to mint to with nothing else in it until proper wallet for pepinals support comes. 
-
-**Do not mint to Pepecoin Core**
-
-#### Inscribe a file
-From file:
-
-```
+**From a file:**
+```bash
 node . mint <address> <path>
 ```
 
-From data:
-
-```
+**From raw data:**
+```bash
 node . mint <address> <content type> <hex data>
 ```
 
-Examples:
-
-```
-node . mint PpB1ocks3ozcti7m5a3i2wViSuFAchLm3n pepe.jpeg
-```
-
-```
-node . mint PpB1ocks3ozcti7m5a3i2wViSuFAchLm3n "text/plain;charset=utf-8" 52696262697421 
+#### Examples:
+```bash
+node . mint BbB1ocks3ozcti7m5a3i2wViSuFAchLm3n bonk.jpeg
 ```
 
-#### Deploy PRC-20
-
-```
-node . prc-20 deploy <address> <ticker> <max token supply> <max allowed mint limit>
+```bash
+node . mint BbB1ocks3ozcti7m5a3i2wViSuFAchLm3n "text/plain;charset=utf-8" 426f6e6b426f6e6b426f6e6b
 ```
 
-Examples: 
+---
 
-```
-node . prc-20 deploy PpB1ocks3ozcti7m5a3i2wViSuFAchLm3n frog 1000 100
-```
+## Deploying and Minting BNK-20 Tokens
 
-#### Mint PRC-20
-
-```
-node . prc-20 mint <address> <ticker> <amount>
+### Deploy BNK-20
+```bash
+node . bnk-20 deploy <address> <ticker> <max token supply> <max allowed mint limit>
 ```
 
-Examples: 
-
+#### Example:
+```bash
+node . bnk-20 deploy BbB1ocks3ozcti7m5a3i2wViSuFAchLm3n BONK 1000 100
 ```
-node . prc-20 mint PpB1ocks3ozcti7m5a3i2wViSuFAchLm3n frog 100
+
+---
+
+### Mint BNK-20
+```bash
+node . bnk-20 mint <address> <ticker> <amount>
 ```
 
-### Viewing Pepinals
+#### Example:
+```bash
+node . bnk-20 mint BbB1ocks3ozcti7m5a3i2wViSuFAchLm3n BONK 100
+```
 
-**Note**: There is currently as bug preventing to preview some larger pepinals files. Wait for a fix or a pepinals indexer. 
+---
 
-Viewing small inscriptions seems to work. Investigating...
+## Viewing Bonkinals
 
 Start the server:
-
-```
+```bash
 node . server
 ```
 
-And open your browser to:
-
+Open your browser to view an inscription:
 ```
-http://localhost:3000/tx/4650300f65470c359c070ae6b88ab7945adad68458c33285968ce0bfa502e52c
+http://localhost:3000/tx/<transaction_id>
 ```
 
-==========
+#### Note:
+Currently, large Bonkinal files may not preview correctly. A fix or indexer update is in progress. Smaller inscriptions are unaffected.
 
+---
 
-### Additional Info
+## Bonkinals Protocol
 
-#### Protocol
+The Bonkinals protocol allows inscriptions of any size onto Bonkcoin's blockchain.
 
-The pepinals protocol allows any size data to be inscribed onto subwoofers.
-
-An inscription is defined as a series of push datas:
-
-```
+### Inscription Example:
+```text
 "ord"
 OP_1
 "text/plain;charset=utf-8"
 OP_0
-"Ribbit!"
+"Bonk!"
 ```
 
-For pepinals, we introduce a couple extensions. First, content may spread across multiple parts:
-
-```
+### Multi-Part Content
+Content can span multiple parts:
+```text
 "ord"
 OP_2
 "text/plain;charset=utf-8"
 OP_1
-"Ribbit and "
+"Bonk and "
 OP_0
-"ribbit ribbit!"
+"bonk bonk bonk!"
+```
+This would be concatenated into:
+```
+"Bonk and bonk bonk bonk!"
 ```
 
-This content here would be concatenated as "Ribbit and ribbit ribbit!". This allows up to ~1500 bytes of data per transaction.
+### P2SH Encoding
+Inscriptions use P2SH encoding. Redeem scripts must start with inscription push data.
 
-Second, P2SH is used to encode inscriptions.
+### Chained Transactions
+Inscriptions can chain across multiple transactions. Each subsequent part must decrement the number separator until it reaches `OP_0`.
 
-There are no restrictions on what P2SH scripts may do as long as the redeem scripts start with inscription push datas.
+---
 
-And third, inscriptions are allowed to chain across transactions:
+## Troubleshooting
 
-Transaction 1:
-
-```
-"ord"
-OP_2
-"text/plain;charset=utf-8"
-OP_1
-"Ribbit and "
-```
-
-Transaction 2
-
-```
-OP_0
-"ribbit ribbit!"
-```
-
-With the restriction that each inscription part after the first must start with a number separator, and number separators must count down to 0.
-
-This allows indexers to know how much data remains.
-
-
-### Troubleshooting
-
-#### I'm getting ECONNREFUSED errors when minting
-
-There's a problem with the node connection. Your `pepecoin.conf` file should look something like:
-
-```
-rpcuser=ape
-rpcpassword=zord
-rpcport=22555
+### ECONNREFUSED Errors
+Ensure your `bonkcoin.conf` file is correct:
+```conf
+rpcuser=bonker
+rpcpassword=bonkers
+rpcport=14327
 server=1
 listen=1
 txindex=1
 rpcallowip=127.0.0.1
 ```
 
-Make sure `port` is not set to the same number as `rpcport`. Also make sure `rpcauth` is not set.
-
-Your `.env file` should look like:
-
-```
-NODE_RPC_URL=http://127.0.0.1:22555
-NODE_RPC_USER=ape
-NODE_RPC_PASS=zord
+Your `.env` file should match:
+```env
+NODE_RPC_URL=http://127.0.0.1:14327
+NODE_RPC_USER=bonker
+NODE_RPC_PASS=bonkers
 TESTNET=false
 ```
 
-#### Other issues
+### Other Issues
+Restart your Bonkcoin node or consult the community for assistance.
 
-Try restarting your Pepecoin node.
+---
 
-If still stuck, ask ChatGPT or search online for other solutions.# Bonkinals
+Have fun with Bonkinals!
+```
+
